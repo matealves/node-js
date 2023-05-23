@@ -1,6 +1,6 @@
-# REST API - NodeJs
+# NodeJs
 
-### Projeto desenvolvido para estudos de NodeJs
+### Projetos desenvolvidos para estudos de NodeJs, Express, MongoDB etc.
 
 [• Como rodar o projeto](#start)<br>
 [• Skills utilizadas](#leng)<br>
@@ -9,8 +9,7 @@
 
 # Visão geral
 
-REST API desenvolvida com **NodeJs** e Express, o conceito é de um **CRUD** onde é possível _adicionar produtos, editá-los, realizar consultas gerais e individuais, e também removê-los_. o Node salva os dados desse endpoint em um arquivo .json, e faz a leitura desse arquivo durante o processo.
-Recomendamos utilizar o **Postman** para realizar as requisições no endpoint.
+Projetos desenvolvidos em NodeJs, com o intuito de **estudar** e se **aprofundar** na linguagem, com projetos reais.
 <br>
 
 <p id="start"></p>
@@ -26,30 +25,6 @@ Recomendamos utilizar o **Postman** para realizar as requisições no endpoint.
 ### - Necessário para realizar requisições:
 
 ### `Postman`
-
-<br>
-
-### - Requisições:
-
-### `POST - http://localhost:4002/products/`
-
-### `{"name": "Tênis Nike Jordan Lebron 12", "price": 4999.9}`
-
-<br>
-
-### `GET - http://localhost:4002/products/`
-
-### `GET - http://localhost:4002/products/#ID#`
-
-<br>
-
-### `PUT - http://localhost:4002/products/#ID#`
-
-### `{"name": "New Name", "price": 999.9}`
-
-<br>
-
-### `DELETE - http://localhost:4002/products/#ID#`
 
 <br>
 
