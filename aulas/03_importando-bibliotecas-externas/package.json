@@ -1,0 +1,20 @@
+{
+  "name": "01_criando-primeiro-projeto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts"
+  },
+  "author": "Mateus Alves",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.10.8"
+  },
+  "dependencies": {
+    "@types/validator": "^13.11.8",
+    "validator": "^13.11.0"
+  }
+}
