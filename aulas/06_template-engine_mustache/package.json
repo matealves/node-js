@@ -1,0 +1,22 @@
+{
+  "name": "node-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.ts",
+    "dev": "nodemon -e ts,json,mustache server.ts"
+  },
+  "author": "Mateus Alves",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/mustache-express": "^1.2.5",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.8"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mustache-express": "^1.3.2"
+  }
+}
