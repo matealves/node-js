@@ -51,8 +51,31 @@
 
         </div>
         <footer>
-            <p>&copy; Desenvolvido por Mateus Alves - <a href="https://github.com/matealves" target="_blank">Acesse meu
+        {{! Exibindo condicionais e valores}}
+        {{#visible}}
+            <p>&copy; Desenvolvido por {{dev}} - <a href="https://github.com/matealves" target="_blank">Acesse meu
                     GitHub</a></p>
+        {{/visible}}   
+
+<!--
+        {{! Exibindo listas (loop) }}
+            <ul>
+            {{#frasesDoDia}}
+                <li>{{.}}</li>
+            {{/frasesDoDia}} 
+            {{! Else }}
+            {{^frasesDoDia}}
+               Não há informações para exibir
+            {{/frasesDoDia}}
+            </ul>
+-->
+<!--
+            <ul>
+            {{#products}}
+                <li>{{title}} - {{price}}</li>
+            {{/products  }}
+            </ul>
+-->
         </footer>
     </div>
 
