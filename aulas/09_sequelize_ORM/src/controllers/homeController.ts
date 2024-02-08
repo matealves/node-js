@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { sequelize } from "../instances/mysql";
+import { sequelize } from "../connection/mysql";
 // import { sequelize } from "../instances/postgre";
 import { Product } from "../models/Product";
 
