@@ -10,11 +10,19 @@ Opa {{name}} {{lastName}}, tudo bem?
 
 <hr/>
 <h2>Usuários do Banco</h2>
-<ul>
-    {{#users}}
-        <li>{{name}} - Idade: {{age}}</li>
-    {{/users}}
-</ul>
+
+<table>
+    <tr>
+        <th>Nome</th>
+        <th>Idade</th>
+    </tr>
+        {{#users}}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{age}}</td>
+            </tr>           
+        {{/users}}
+</table>
 
 <hr/>
 <h2>Produtos</h2>

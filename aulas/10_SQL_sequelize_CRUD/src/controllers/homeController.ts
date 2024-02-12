@@ -5,14 +5,70 @@ import { Product } from "../models/Product";
 import { User } from "../models/User";
 
 export const home = async (req: Request, res: Response) => {
+  // GT = Greather Than (Maior que)
+  // LT = Less Than (Menor que)
+  // E = Equal (Igual)
+
+  // ####### EX 1 - MODELOS DE FILTROS
+
+  // const users = await User.findAll({
+  //   // attributes: ["name", "age"],
+  //   // attributes: ["name", ["age", "idade"]],
+  //   attributes: { exclude: ["id"] },
+  //   // where: { name: "Mateus" },
+  //   // where: { name: "Mateus", age: 24 },
+  //   // where: { age: [18, 24] },
+  //   // where: { age: { [Op.in]: [18, 25] } },
+  //   // where: { age: { [Op.notIn]: [18, 25] } },
+  //   // where: { [Op.or]: [{ age: 18 }, { age: 24 }] },
+  //   where: {
+  //     // age: {
+  //     //   // [Op.gt]: 24, // > 24
+  //     //   [Op.gte]: 24, // >= 24
+  //     //   // [Op.lt]: 25, // < 25
+  //     //   // [Op.lte]: 25, // <= 25
+  //     // },
+  //     // age: {
+  //     // [Op.gte]: 25, // >= 25
+  //     // [Op.lte]: 50, // <= 50
+  //     // [Op.between]: [25, 50], // >= 25 && <= 50
+  //     // [Op.notBetween]: [25, 50], // < 25 && > 50
+  //     // },
+  //   },
+  // });
+
+  // ####### EX 2 - FILTROS SE CONTÉM OU NÃO CONTÉM ALGO
+  // const searchName = "a";
+  // const users = await User.findAll({
+  //   attributes: { exclude: ["id"] },
+  //   // where: {
+  //   //   name: {
+  //   //     // [Op.like]: "ma%", // começa com "ma"
+  //   //     // [Op.like]: "%e", // termina com "e"
+  //   //     // [Op.like]: "%a%", // contém "a"
+  //   //   },
+  //   // },
+  //   where: {
+  //     name: { [Op.like]: `%${searchName}%`, [Op.notLike]: "%o%" },
+  //   },
+  // });
+
+  // ####### EX 3 - ORDENANDO RESULTADOS
+  // const users = await User.findAll({
+  //   where: { age: { [Op.gte]: 18 } },
+  //   // order: ["name"],
+  //   order: [["name", "ASC"]],
+  //   // order: [
+  //   //   ["age", "DESC"],
+  //   //   ["name", "DESC"],
+  //   // ],
+  // });
+
+  // ####### EX 4 - LIMITAR RESULTADOS E PAGINAÇÃO
   const users = await User.findAll({
-    // attributes: ["name", "age"],
-    // attributes: ["name", ["age", "idade"]],
-    attributes: { exclude: ["id"] },
-    // where: { name: "Mateus" },
-    // where: { name: "Mateus", age: 24 },
-    where: { age: [18, 24] },
-    // where: { [Op.or]: [{ age: 18 }, { age: 24 }] },
+    order: [["name", "ASC"]],
+    limit: 5, // limitar por página
+    offset: 0, // pular "n" valores
   });
 
   let age: number = 90;
