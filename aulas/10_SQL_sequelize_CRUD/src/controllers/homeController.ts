@@ -71,6 +71,21 @@ export const home = async (req: Request, res: Response) => {
     offset: 0, // pular "n" valores
   });
 
+  // ####### EX 1 - INSERIR DADOS (BUILD + SAVE)
+  const newUser = User.build({
+    name: "Test",
+  });
+  // pegar data de nascimento de outro lugar
+  const ageNewUser = 35;
+  newUser.age = ageNewUser;
+  // await newUser.save();
+
+  // ####### EX 2 - INSERIR DADOS (CREATE)
+  // const newUser2 = await User.create({
+  //   name: "Raul",
+  //   age: 28,
+  // });
+
   let age: number = 90;
   let showOld: boolean = false;
 
