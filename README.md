@@ -1,6 +1,8 @@
 # NodeJs
 
-### Projetos desenvolvidos para estudos de NodeJs, Express, MongoDB etc.
+### Curso completo de NodeJs com alguns projetos desenvolvidos para estudo.
+
+### Recursos extras abordados: Express, MySQL, MongoDB, API REST, Autenticação etc.
 
 [• Como rodar o projeto](#start)<br>
 [• Skills utilizadas](#leng)<br>
