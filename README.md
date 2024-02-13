@@ -14,17 +14,17 @@ Projetos desenvolvidos em NodeJs, com o intuito de **estudar** e se **aprofundar
 
 <p id="start"></p>
 
+### - Pré-requisitos globais:
+
+`npm install -g nodemon typescript ts-node`
+
 ### - Instalação:
 
-### `npm install`
+`npm install`
 
 ### - Rodar no server local:
 
-### `npm start`
-
-### - Necessário para realizar requisições:
-
-### `Postman`
+`npm start`
 
 <br>
 
