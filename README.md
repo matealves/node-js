@@ -1,8 +1,6 @@
 # NodeJs
 
-### Curso completo de NodeJs com alguns projetos desenvolvidos para estudo.
-
-### Recursos extras abordados: Express, MySQL, MongoDB, API REST, Autenticação etc.
+### Curso completo de NodeJs com alguns projetos desenvolvidos para estudo. Recursos extras abordados: Express, MySQL, MongoDB, API REST, Autenticação etc.
 
 [• Como rodar o projeto](#start)<br>
 [• Skills utilizadas](#leng)<br>
@@ -37,8 +35,8 @@ Projetos desenvolvidos em NodeJs, com o intuito de **estudar** e se **aprofundar
 <p>
   <img align="center" alt="NodeJs" height="30" width="40" title="NodeJs" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg">
   <img align="center" alt="TS" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg">
-</p>
   <img align="center" alt="JS" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg">
+</p>
 
 <br>
 
