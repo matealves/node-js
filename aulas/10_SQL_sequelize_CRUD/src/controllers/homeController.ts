@@ -71,7 +71,6 @@ export const home = async (req: Request, res: Response) => {
   // offset: 0, // pular "n" valores
   // });
 
-
   // ####### EX 1 - ATUALIZAR DADOS (UPDATE)
   // const dataUpdated = { name: "Teste", age: 99 };
   // await User.update(dataUpdated, {
@@ -83,17 +82,26 @@ export const home = async (req: Request, res: Response) => {
   //   // },
   // });
 
-    // ####### EX 2 - ATUALIZAR DADOS (UPDATE)
+  // ####### EX 2 - ATUALIZAR DADOS (SAVE)
+  // const users = await User.findAll({ where: { id: 20 } });
+  // // console.log("result", users);
+
+  // if (users.length > 0) {
+  //   let user = users[0];
+
+  //   user.age = 18;
+  //   await user.save();
+  // }
 
   const users = await User.findAll();
 
   // ####### EX 1 - INSERIR DADOS (BUILD + SAVE)
-  const newUser = User.build({
-    name: "Test",
-  });
+  // const newUser = User.build({
+  //   name: "Test",
+  // });
   // pegar data de nascimento de outro lugar
-  const ageNewUser = 35;
-  newUser.age = ageNewUser;
+  // const ageNewUser = 35;
+  // newUser.age = ageNewUser;
   // await newUser.save();
 
   // ####### EX 2 - INSERIR DADOS (CREATE)
