@@ -65,11 +65,27 @@ export const home = async (req: Request, res: Response) => {
   // });
 
   // ####### EX 4 - LIMITAR RESULTADOS E PAGINAÇÃO
-  const users = await User.findAll({
-    order: [["name", "ASC"]],
-    limit: 5, // limitar por página
-    offset: 0, // pular "n" valores
-  });
+  // const users = await User.findAll({
+  // order: [["name", "ASC"]],
+  // limit: 5, // limitar por página
+  // offset: 0, // pular "n" valores
+  // });
+
+
+  // ####### EX 1 - ATUALIZAR DADOS (UPDATE)
+  // const dataUpdated = { name: "Teste", age: 99 };
+  // await User.update(dataUpdated, {
+  //   where: {
+  //     name: "Teste1",
+  //   },
+  //   // where: {
+  //   //   age: { [Op.lt]: 18 },
+  //   // },
+  // });
+
+    // ####### EX 2 - ATUALIZAR DADOS (UPDATE)
+
+  const users = await User.findAll();
 
   // ####### EX 1 - INSERIR DADOS (BUILD + SAVE)
   const newUser = User.build({
@@ -105,4 +121,20 @@ export const home = async (req: Request, res: Response) => {
     frasesDoDia: [],
     users,
   });
+};
+
+export const novoUsuario = async (req: Request, res: Response) => {
+  const { name, age } = req.body;
+
+  if (name) {
+    const newUser = User.build({ name });
+
+    if (age) {
+      newUser.age = Number(age);
+    }
+
+    await newUser.save();
+  }
+
+  res.redirect("/");
 };
