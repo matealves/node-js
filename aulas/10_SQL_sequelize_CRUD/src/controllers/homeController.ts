@@ -38,6 +38,7 @@ export const home = async (req: Request, res: Response) => {
   // });
 
   // ####### EX 2 - FILTROS SE CONTÉM OU NÃO CONTÉM ALGO
+
   // const searchName = "a";
   // const users = await User.findAll({
   //   attributes: { exclude: ["id"] },
@@ -54,6 +55,7 @@ export const home = async (req: Request, res: Response) => {
   // });
 
   // ####### EX 3 - ORDENANDO RESULTADOS
+
   // const users = await User.findAll({
   //   where: { age: { [Op.gte]: 18 } },
   //   // order: ["name"],
@@ -65,6 +67,7 @@ export const home = async (req: Request, res: Response) => {
   // });
 
   // ####### EX 4 - LIMITAR RESULTADOS E PAGINAÇÃO
+
   // const users = await User.findAll({
   // order: [["name", "ASC"]],
   // limit: 5, // limitar por página
@@ -72,6 +75,7 @@ export const home = async (req: Request, res: Response) => {
   // });
 
   // ####### EX 1 - ATUALIZAR DADOS (UPDATE)
+
   // const dataUpdated = { name: "Teste", age: 99 };
   // await User.update(dataUpdated, {
   //   where: {
@@ -83,6 +87,7 @@ export const home = async (req: Request, res: Response) => {
   // });
 
   // ####### EX 2 - ATUALIZAR DADOS (SAVE)
+  
   // const users = await User.findAll({ where: { id: 20 } });
   // // console.log("result", users);
 
@@ -96,6 +101,7 @@ export const home = async (req: Request, res: Response) => {
   const users = await User.findAll();
 
   // ####### EX 1 - INSERIR DADOS (BUILD + SAVE)
+
   // const newUser = User.build({
   //   name: "Test",
   // });
@@ -105,6 +111,7 @@ export const home = async (req: Request, res: Response) => {
   // await newUser.save();
 
   // ####### EX 2 - INSERIR DADOS (CREATE)
+
   // const newUser2 = await User.create({
   //   name: "Raul",
   //   age: 28,
