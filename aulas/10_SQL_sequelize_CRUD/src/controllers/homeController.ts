@@ -74,7 +74,7 @@ export const home = async (req: Request, res: Response) => {
   // offset: 0, // pular "n" valores
   // });
 
-  // ####### EX 1 - ATUALIZAR DADOS (UPDATE)
+  // ####### EX 1 - ATUALIZAR DADOS (update)
 
   // const dataUpdated = { name: "Teste", age: 99 };
   // await User.update(dataUpdated, {
@@ -86,8 +86,8 @@ export const home = async (req: Request, res: Response) => {
   //   // },
   // });
 
-  // ####### EX 2 - ATUALIZAR DADOS (SAVE)
-  
+  // ####### EX 2 - ATUALIZAR DADOS (save)
+
   // const users = await User.findAll({ where: { id: 20 } });
   // // console.log("result", users);
 
@@ -98,9 +98,7 @@ export const home = async (req: Request, res: Response) => {
   //   await user.save();
   // }
 
-  const users = await User.findAll();
-
-  // ####### EX 1 - INSERIR DADOS (BUILD + SAVE)
+  // ####### EX 1 - INSERIR DADOS (build + save)
 
   // const newUser = User.build({
   //   name: "Test",
@@ -110,12 +108,30 @@ export const home = async (req: Request, res: Response) => {
   // newUser.age = ageNewUser;
   // await newUser.save();
 
-  // ####### EX 2 - INSERIR DADOS (CREATE)
+  // ####### EX 2 - INSERIR DADOS (create)
 
   // const newUser2 = await User.create({
   //   name: "Raul",
   //   age: 28,
   // });
+
+  // ####### EX 1 - DELETAR DADOS (destroy)
+  // deletar mais de 1, condição direta do model
+
+  // await User.destroy({
+  //   where: {
+  //     age: { [Op.lt]: 18 },
+  //   },
+  // });
+
+  // ####### EX 2 - DELETAR DADOS (destroy)
+  // Find One retorna um Objeto direto, já o findAll retorna um Array de objetos
+
+  // const users = await User.findOne({ where: { name: "Teste" } });
+
+  // await users?.destroy();
+
+  const users = await User.findAll();
 
   let age: number = 90;
   let showOld: boolean = false;
