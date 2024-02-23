@@ -2,12 +2,12 @@ import express, { Request, Response } from "express";
 import path from "path";
 import mustache from "mustache-express";
 import dotenv from "dotenv";
-import { mongoDBConnect } from "./database/mongodb";
+import { mongoDBConnect } from "./database/mongoDB";
 import mainRoutes from "./routes/index";
 
 dotenv.config();
 
-// conectar com o banco de dados
+console.log("Conectando ao MongoDB...");
 mongoDBConnect();
 
 const server = express();
@@ -27,7 +27,6 @@ server.use((req: Request, res: Response) => {
   res.status(404).send("Página não encontrada!");
 });
 
-// $ npm start
 server.listen(PORT, () => {
   console.log(`\x1b[36m[PORT:${PORT}] \x1b[32mApp Express iniciado...\x1b[0m`);
   console.log(
