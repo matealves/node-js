@@ -20,7 +20,11 @@ export const home = async (req: Request, res: Response) => {
   // #### SORT / ORDER
   // (1) ASC: ordem crescente ----- (-1) DESC: ordem decrescente
   // const users = await User.find({ age: { $gt: 18 } }).sort({ age: -1 });
-  const users = await User.find().sort({ "name.firstName": 1 });
+  // const users = await User.find().sort({ "name.firstName": 1 });
+
+  // #### LIMIT RESULTS / PAGINATION
+  // (skip) pular "n" valores ----- (limit) exibir "n" valores
+  const users = await User.find().skip(2).limit(2);
 
   // #### POST
   // #### PUT/UPDATE
