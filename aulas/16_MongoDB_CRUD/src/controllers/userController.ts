@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import User from "../models/User";
 
 export const nome = (req: Request, res: Response) => {
   let nome: string = req.query.nome as string;
@@ -29,4 +30,23 @@ export const idadeAction = (req: Request, res: Response) => {
     idade,
     mostrarIdade,
   });
+};
+
+export const addUserAction = async (req: Request, res: Response) => {
+  const { firstName, lastName, email, age, interests } = req.body;
+
+  try {
+    const newUser = new User();
+    newUser.name = { firstName, lastName };
+    newUser.email = email;
+    newUser.age = age;
+    newUser.interests = interests.trim().split(/\,\s|\,/g);
+
+    const result = await newUser.save();
+    console.log("\nNovo usuário adicionado: ", result);
+  } catch (error) {
+    console.log("Erro ao inserir usuário no banco:\n", error);
+  }
+
+  res.redirect("/");
 };

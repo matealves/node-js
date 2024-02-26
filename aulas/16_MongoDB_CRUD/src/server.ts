@@ -24,7 +24,7 @@ server.use(express.urlencoded({ extended: true }));
 server.use(mainRoutes);
 
 server.use((req: Request, res: Response) => {
-  res.status(404).send("Página não encontrada!");
+  res.status(404).send("404 - Página não encontrada!");
 });
 
 server.listen(PORT, () => {

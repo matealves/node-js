@@ -1,38 +1,36 @@
 {{>partials/header}}
 
-Opa {{name}} {{lastName}}, tudo bem?
-{{#showOld}}
-    Como vai a vida?
-{{/showOld}}
-{{^showOld}}
-    Beleza?
-{{/showOld}}
+<fieldset>
+    <legend>Adicionar Novo Usuário</legend>
+    <form method="POST" action="/novo-usuario">
+        <input type="text" name="firstName" placeholder="Nome"/><br>
+        <input type="text" name="lastName" placeholder="Sobrenome"/><br>
+        <input type="email" name="email" placeholder="E-mail"/><br>
+        <input type="text" name="age" placeholder="Idade"/><br>
+        <input type="text" name="interests" placeholder="Interesses (livros, futebol)"/><br>
+        <input type="submit" value="Enviar"/><br>
+    </form>
+</fieldset>
 
-<hr/>
-<h2>Produtos</h2>
-<ul>
-    {{#products}}
-        {{>partials/productItem}}
-    {{/products}}
-</ul>
 
-<hr/>
-<h2>Produtos a partir de R$ 12</h2>
-<ul>
-    {{#expensives}}
-        {{>partials/productItem}}
-    {{/expensives}}
-</ul>
-
-<hr/>
-
-<ul>
-    {{#frasesDoDia}}
-        <li>{{.}}</li>
-    {{/frasesDoDia}}
-    {{^frasesDoDia}}
-        Não há frases motivacionais hoje.
-    {{/frasesDoDia}}
-</ul>
+<h3>Usuários do Banco</h3>
+<table>
+    <tr>
+        <th>Nome</th>
+        <th>Sobrenome</th>
+        <th>Idade</th>
+        <th>Email</th>
+        <th>Interesses</th>
+    </tr>
+        {{#users}}
+            <tr>
+                <td>{{name.firstName}}</td>
+                <td>{{name.lastName}}</td>
+                <td>{{age}}</td>
+                <td>{{email}}</td>
+                <td>{{interests}}</td>
+            </tr>           
+        {{/users}}
+</table>
 
 {{>partials/footer}}
