@@ -4,7 +4,7 @@ type UserType = {
   name: { firstName: string; lastName: string };
   age: number;
   email: string;
-  interests: [string];
+  interests: string[];
 };
 
 const schema = new Schema<UserType>({

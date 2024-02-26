@@ -28,8 +28,8 @@ server.use((req: Request, res: Response) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`\x1b[36m[PORT:${PORT}] \x1b[32mApp Express iniciado...\x1b[0m`);
+  console.log(`[PORT:${PORT}] \x1b[32mApp Express iniciado...\x1b[0m`);
   console.log(
-    `\x1b[32mServer local:\x1b[0m \x1b[36mhttp://127.0.0.1:${PORT}\x1b[0m`
+    `\x1b[0mServer local:\x1b[0m \x1b[36mhttp://127.0.0.1:${PORT}\x1b[0m`
   );
 });
