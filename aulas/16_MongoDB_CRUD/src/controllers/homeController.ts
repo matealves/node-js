@@ -49,7 +49,22 @@ export const home = async (req: Request, res: Response) => {
   // console.log("NOVO USUÁRIO: ", result);
   // console.log("NOVO USUÁRIO: ", newUser);
 
-  // #### PUT/UPDATE
+  // #### UPDATE
+  // - updateOne / updateMany
+  // await User.updateOne(
+  // await User.updateMany(
+  //   { age: { $lt: 18 } }, // condição
+  //   { age: 18 } // dado atualizado
+  // );
+
+  // - updateOne / updateMany
+  // const user = await User.findOne({ email: "ph@email.com.br" });
+  // if (user) {
+  //   user.age = 46;
+  //   // await user?.save();
+  //   console.log("userUpdated: ", user);
+  // }
+
   // #### DELETE
 
   const users = await User.find().sort({ "name.firstName": 1 });
