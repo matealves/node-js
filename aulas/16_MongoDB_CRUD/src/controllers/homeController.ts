@@ -67,11 +67,10 @@ export const home = async (req: Request, res: Response) => {
   // }
 
   // #### DELETE
-  // - findOneAndDelete
+  // - findOneAndDelete / deleteOne
   // await User.findOneAndDelete({ "name.firstName": "Test" });
 
-  const user = await User.findOne({ email: "Test@test.com" });
-  user?.deleteOne();
+  // await User.deleteOne({ email: "Test@test.com" });
 
   const users = await User.find().sort({ "name.firstName": 1 });
 
