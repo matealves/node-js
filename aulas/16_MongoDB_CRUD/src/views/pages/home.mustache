@@ -19,6 +19,8 @@
         <th>Nome</th>
         <th>Sobrenome</th>
         <th>Idade</th>
+        <th>+</th>
+        <th>-</th>
         <th>Email</th>
         <th>Interesses</th>
     </tr>
@@ -27,6 +29,8 @@
                 <td>{{name.firstName}}</td>
                 <td>{{name.lastName}}</td>
                 <td>{{age}}</td>
+                <td><a href="/usuario/{{_id}}/addidade">+</a></td>
+                <td><a href="/usuario/{{_id}}/diminuiridade">-</a></td>
                 <td>{{email}}</td>
                 <td>{{interests}}</td>
             </tr>           

@@ -50,3 +50,33 @@ export const addUserAction = async (req: Request, res: Response) => {
 
   res.redirect("/");
 };
+
+export const incrementAgeAction = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  await User.findByIdAndUpdate(id, { $inc: { age: 1 } });
+
+  res.redirect("/");
+
+  // const userEncontrado = await User.findById(id);
+  // if (userEncontrado) {
+  //   userEncontrado.age++;
+  //   userEncontrado.save();
+  //   res.redirect("/");
+  // }
+};
+
+export const decrementAgeAction = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  await User.findByIdAndUpdate(id, { $inc: { age: -1 } });
+
+  res.redirect("/");
+
+  // const userEncontrado = await User.findById(id);
+  // if (userEncontrado) {
+  //   userEncontrado.age--;
+  //   userEncontrado.save();
+  //   res.redirect("/");
+  // }
+};
