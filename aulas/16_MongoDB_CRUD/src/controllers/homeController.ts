@@ -50,8 +50,9 @@ export const home = async (req: Request, res: Response) => {
   // console.log("NOVO USUÁRIO: ", newUser);
 
   // #### UPDATE
-  // - updateOne / updateMany
+  // - updateOne / updateMany / findOneAndUpdate
   // await User.updateOne(
+  // await User.findOneAndUpdate(
   // await User.updateMany(
   //   { age: { $lt: 18 } }, // condição
   //   { age: 18 } // dado atualizado
