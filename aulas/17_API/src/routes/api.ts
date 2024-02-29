@@ -2,6 +2,7 @@ import { Router } from "express";
 
 const router = Router();
 
+// GET
 router.get("/ping", (req, res) => {
   res.json({ pong: true });
 });
