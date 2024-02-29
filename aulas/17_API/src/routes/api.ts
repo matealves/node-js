@@ -7,6 +7,9 @@ const router = Router();
 
 router.post("/frases", ApiController.createPhrase);
 
+router.get("/frases", ApiController.getAllPhrases);
+router.get("/frase/:id", ApiController.getPhrase);
+
 // Test
 router.get("/ping", Test.ping);
 router.get("/random", Test.random);
