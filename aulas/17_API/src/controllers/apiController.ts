@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { Sequelize } from "sequelize";
 
 import { Phrase } from "../models/Phrase";
 
@@ -24,6 +25,20 @@ export const getPhrase = async (req: Request, res: Response) => {
     res.json(phrase);
   } else {
     res.status(404);
+    res.json({ error: "404 - Não encontrado." });
+  }
+};
+
+export const getRandomPhrase = async (req: Request, res: Response) => {
+  const phrase = await Phrase.findOne({
+    order: [
+      Sequelize.fn("RANDOM"), // no MySQL usar 'RAND'
+    ],
+  });
+
+  if (phrase) res.json(phrase);
+  else {
+    res.status(404);
     res.json({ error: "404 - Não encontrado" });
   }
 };
@@ -40,7 +55,7 @@ export const updatePhrase = async (req: Request, res: Response) => {
     res.json(phrase);
   } else {
     res.status(404);
-    res.json({ error: "404 - Não encontrado" });
+    res.json({ error: "404 - Não encontrado." });
   }
 };
 
