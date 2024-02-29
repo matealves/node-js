@@ -43,3 +43,8 @@ export const updatePhrase = async (req: Request, res: Response) => {
     res.json({ error: "404 - Não encontrado" });
   }
 };
+
+export const deletePhrase = async (req: Request, res: Response) => {
+  await Phrase.destroy({ where: { id: req.params.id } });
+  res.json({ message: "Deletado com sucesso." });
+};

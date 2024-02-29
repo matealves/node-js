@@ -12,6 +12,8 @@ router.get("/frase/:id", ApiController.getPhrase);
 
 router.put("/frase/:id", ApiController.updatePhrase);
 
+router.delete("/frase/:id", ApiController.deletePhrase);
+
 // Test
 router.get("/ping", Test.ping);
 router.get("/random", Test.random);
