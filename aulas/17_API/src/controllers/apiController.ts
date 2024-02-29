@@ -2,21 +2,16 @@ import { Request, Response } from "express";
 
 import { Phrase } from "../models/Phrase";
 
-export const ping = (req: Request, res: Response) => {
-  res.json({ pong: true });
-};
+export const createPhrase = async (req: Request, res: Response) => {
+  const { author, txt } = await req.body;
 
-export const random = (req: Request, res: Response) => {
-  const nRand: number = Math.floor(Math.random() * 100);
-  res.json({ number: nRand });
-};
+  const newPhrase = await Phrase.create({ author, txt });
 
-export const nome = (req: Request, res: Response) => {
-  function capitalize(nome: string) {
-    return nome.charAt(0).toUpperCase() + nome.slice(1);
-  }
-
-  const nome: string = req.params.nome;
-
-  res.json({ nome: capitalize(nome) });
+  res.json({
+    success: true,
+    message: "Frase adicionada com sucesso.",
+    id: newPhrase.id,
+    author,
+    txt,
+  });
 };

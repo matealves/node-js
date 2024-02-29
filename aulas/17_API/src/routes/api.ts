@@ -1,12 +1,15 @@
 import { Router } from "express";
 
 import * as ApiController from "../controllers/apiController";
+import * as Test from "../controllers/testController";
 
 const router = Router();
 
-// GET
-router.get("/ping", ApiController.ping);
-router.get("/random", ApiController.random);
-router.get("/nome/:nome", ApiController.nome);
+router.post("/frases", ApiController.createPhrase);
+
+// Test
+router.get("/ping", Test.ping);
+router.get("/random", Test.random);
+router.get("/nome/:nome", Test.nome);
 
 export default router;
