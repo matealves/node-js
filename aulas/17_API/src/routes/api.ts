@@ -10,6 +10,8 @@ router.post("/frases", ApiController.createPhrase);
 router.get("/frases", ApiController.getAllPhrases);
 router.get("/frase/:id", ApiController.getPhrase);
 
+router.put("/frase/:id", ApiController.updatePhrase);
+
 // Test
 router.get("/ping", Test.ping);
 router.get("/random", Test.random);

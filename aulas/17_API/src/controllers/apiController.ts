@@ -3,14 +3,13 @@ import { Request, Response } from "express";
 import { Phrase } from "../models/Phrase";
 
 export const createPhrase = async (req: Request, res: Response) => {
-  const { author, txt } = await req.body;
-  const newPhrase = await Phrase.create({ author, txt });
+  const data = await Phrase.create(req.body);
 
   res.status(201);
   res.json({
     success: true,
-    message: "Frase adicionada com sucesso.",
-    data: { id: newPhrase.id, author, txt },
+    message: "Dados inseridos com sucesso.",
+    data,
   });
 };
 
@@ -20,7 +19,24 @@ export const getAllPhrases = async (req: Request, res: Response) => {
 
 export const getPhrase = async (req: Request, res: Response) => {
   const phrase = await Phrase.findByPk(req.params.id);
+
   if (phrase) {
+    res.json(phrase);
+  } else {
+    res.status(404);
+    res.json({ error: "404 - Não encontrado" });
+  }
+};
+
+export const updatePhrase = async (req: Request, res: Response) => {
+  const { author, txt } = req.body;
+  const phrase = await Phrase.findByPk(req.params.id);
+
+  if (phrase) {
+    phrase.author = author;
+    phrase.txt = txt;
+    await phrase.save();
+
     res.json(phrase);
   } else {
     res.status(404);
