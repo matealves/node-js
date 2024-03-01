@@ -1,5 +1,5 @@
 import { Model, DataTypes } from "sequelize";
-import { sequelize } from "../instances/postgre";
+import { sequelize } from "../connection/postgre";
 
 export interface TodoInstance extends Model {
   id: number;
