@@ -9,8 +9,18 @@ const upload = multer({
 
 const router = Router();
 
-router.post("/frases", ApiController.createPhrase);
 router.post("/upload", upload.single("avatar"), ApiController.uploadFile);
+// router.post("/upload", upload.array('avatars', 2), ApiController.uploadFile);
+// router.post(
+//   "/upload",
+//   upload.fields([
+//     { name: "avatar", maxCount: 1 },
+//     { name: "gallery", maxCount: 3 },
+//   ]),
+//   ApiController.uploadFile
+// );
+
+router.post("/frases", ApiController.createPhrase);
 
 router.get("/frases", ApiController.getAllPhrases);
 router.get("/frase/aleatoria", ApiController.getRandomPhrase);
