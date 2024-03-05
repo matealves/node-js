@@ -3,19 +3,24 @@ import multer from "multer";
 
 import * as ApiController from "../controllers/apiController";
 
-const storage = multer.diskStorage({
-  destination: (req, file, callback) => {
-    callback(null, "./temp");
-  },
-  filename: (req, file, callback) => {
-    callback(null, Date.now() + ".jpg");
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: (req, file, callback) => {
+//     callback(null, "./temp");
+//   },
+//   filename: (req, file, callback) => {
+//     callback(null, Date.now() + ".jpg");
+//   },
+// });
 
 const upload = multer({
-  // dest: "./temp",
+  dest: "./temp/",
+  fileFilter: (req, file, callback) => {
+    const allowed: string[] = ["image/jpg", "image/jpeg", "image/png"];
+    callback(null, allowed.includes(file.mimetype));
+  },
+  limits: { fileSize: 2000000 },
   // storage: multer.memoryStorage(), // Exige muita memória (derruba o server)
-  storage,
+  // storage,
 });
 
 const router = Router();
