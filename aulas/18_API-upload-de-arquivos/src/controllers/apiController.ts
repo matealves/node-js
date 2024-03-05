@@ -65,8 +65,16 @@ export const deletePhrase = async (req: Request, res: Response) => {
 };
 
 export const uploadFile = async (req: Request, res: Response) => {
-  const files = req.files as { [fieldname: string]: Express.Multer.File[] };
-  console.log("req.files: ", files);
+  type UploadTypes = {
+    // avatar: Express.Multer.File[];
+    // gallery: Express.Multer.File[];
+    [fieldname: string]: Express.Multer.File[];
+  };
+
+  const file = req.file as Express.Multer.File;
+  // const files = req.files as UploadTypes;
+  console.log("FILE: ", file);
+  // console.log("FILES: ", files);
 
   res.json({ message: "Upload realizado com sucesso." });
 };

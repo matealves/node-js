@@ -3,14 +3,25 @@ import multer from "multer";
 
 import * as ApiController from "../controllers/apiController";
 
+const storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, "./temp");
+  },
+  filename: (req, file, callback) => {
+    callback(null, Date.now() + ".jpg");
+  },
+});
+
 const upload = multer({
-  dest: "./temp",
+  // dest: "./temp",
+  // storage: multer.memoryStorage(), // Exige muita memória (derruba o server)
+  storage,
 });
 
 const router = Router();
 
 router.post("/upload", upload.single("avatar"), ApiController.uploadFile);
-// router.post("/upload", upload.array('avatars', 2), ApiController.uploadFile);
+// router.post("/upload", upload.array("avatars", 2), ApiController.uploadFile);
 // router.post(
 //   "/upload",
 //   upload.fields([
