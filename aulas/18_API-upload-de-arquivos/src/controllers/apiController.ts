@@ -1,3 +1,4 @@
+import { unlink } from "fs/promises";
 import { Request, Response } from "express";
 import { Sequelize } from "sequelize";
 import sharp from "sharp";
@@ -74,14 +75,18 @@ export const uploadFile = async (req: Request, res: Response) => {
   // const file = req.file as Express.Multer.File;
   // const files = req.files as UploadTypes;
   if (req.file) {
+    const filename = `${req.file.filename}.jpg`;
     await sharp(req.file.path)
       .resize(500)
       .toFormat("jpeg")
-      .toFile(`./public/images/${req.file.filename}.jpg`);
+      .toFile(`./public/images/${filename}`);
+
+    // deletar arquivo temporário
+    await unlink(req.file.path);
 
     res.json({
       success: "Upload realizado com sucesso.",
-      file: `${req.file.filename}.jpg`,
+      file: filename,
     });
   } else {
     res.status(400);
