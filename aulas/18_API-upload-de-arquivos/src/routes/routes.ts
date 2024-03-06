@@ -13,10 +13,15 @@ import * as ApiController from "../controllers/apiController";
 // });
 
 const upload = multer({
-  dest: "./temp/",
+  dest: "./temp",
   fileFilter: (req, file, callback) => {
     const allowed: string[] = ["image/jpg", "image/jpeg", "image/png"];
-    callback(null, allowed.includes(file.mimetype));
+    if (!allowed.includes(file.mimetype)) {
+      // callback(null, false);
+      callback(new multer.MulterError("LIMIT_UNEXPECTED_FILE"));
+    } else {
+      callback(null, true);
+    }
   },
   limits: { fileSize: 2000000 },
   // storage: multer.memoryStorage(), // Exige muita memória (derruba o server)

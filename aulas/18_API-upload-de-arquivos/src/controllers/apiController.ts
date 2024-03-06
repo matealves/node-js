@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Sequelize } from "sequelize";
-
+import sharp from "sharp";
 import { Phrase } from "../models/Phrase";
 
 export const createPhrase = async (req: Request, res: Response) => {
@@ -65,16 +65,28 @@ export const deletePhrase = async (req: Request, res: Response) => {
 };
 
 export const uploadFile = async (req: Request, res: Response) => {
-  type UploadTypes = {
-    // avatar: Express.Multer.File[];
-    // gallery: Express.Multer.File[];
-    [fieldname: string]: Express.Multer.File[];
-  };
+  // type UploadTypes = {
+  // avatar: Express.Multer.File[];
+  // gallery: Express.Multer.File[];
+  // [fieldname: string]: Express.Multer.File[];
+  // };
 
-  const file = req.file as Express.Multer.File;
+  // const file = req.file as Express.Multer.File;
   // const files = req.files as UploadTypes;
-  console.log("FILE: ", file);
-  // console.log("FILES: ", files);
+  if (req.file) {
+    await sharp(req.file.path)
+      .resize(500)
+      .toFormat("jpeg")
+      .toFile(`./public/images/${req.file.filename}.jpg`);
 
-  res.json({ message: "Upload realizado com sucesso." });
+    res.json({
+      success: "Upload realizado com sucesso.",
+      file: `${req.file.filename}.jpg`,
+    });
+  } else {
+    res.status(400);
+    res.json({ error: "Arquivo inválido." });
+  }
+  console.log("FILE: ", req.file);
+  // console.log("FILES: ", files);
 };
