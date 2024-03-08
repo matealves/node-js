@@ -1,29 +1,26 @@
 import { Request, Response, NextFunction } from "express";
-import { User } from "../models/User";
+import JWT from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const Auth = {
   private: async (req: Request, res: Response, next: NextFunction) => {
     let success = false;
     const authorization = req.headers.authorization;
 
-    // ### Codificar string para base64 (Basic Auth)
-    // const encoded = Buffer.from("abc@email.com:senha").toString("base64");
-    // console.log("encoded", encoded);
-
     if (authorization) {
-      const hash: string = authorization.substring(6);
-      const decoded: string = Buffer.from(hash, "base64").toString();
-      const data: string[] = decoded.split(":");
+      const [authType, token] = authorization.split(" ");
 
-      if (data.length === 2) {
-        const hasUser = await User.findOne({
-          where: {
-            email: data[0],
-            password: data[1],
-          },
-        });
+      if (authType === "Bearer" && token) {
+        try {
+          const decoded = JWT.verify(
+            token,
+            process.env.JWT_SECRET_KEY as string
+          );
 
-        if (hasUser) success = true;
+          success = !!decoded;
+        } catch (error) {}
       }
     }
 

@@ -3,6 +3,8 @@ import JWT from "jsonwebtoken";
 import dotenv from "dotenv";
 import { User } from "../models/User";
 
+dotenv.config();
+
 // Test
 export const ping = (req: Request, res: Response) => {
   res.json({ pong: true });
