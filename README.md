@@ -39,6 +39,7 @@ Projetos desenvolvidos em NodeJs, com o intuito de **estudar** e se **aprofundar
   <img align="center" title="MongoDB" height="30" width="40" title="NodeJs" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg">
   <img align="center" title="Mongoose" height="30" width="40" title="NodeJs" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongoose/mongoose-original.svg">
   <img align="center" title="MySQL" height="30" width="40" title="NodeJs" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg">
+  <img align="center" title="PostgreSQL" height="30" width="40" title="NodeJs" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg">
   <img align="center" title="Sequelize" height="30" width="40" title="NodeJs" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sequelize/sequelize-original.svg">
 </p>
 
