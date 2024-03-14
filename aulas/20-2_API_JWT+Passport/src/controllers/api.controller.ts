@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { User } from "../models/User";
 
+import { generateToken } from "../config/passport";
+
 // Test
 export const ping = (req: Request, res: Response) => {
   res.json({ pong: true });
@@ -20,8 +22,18 @@ export const register = async (req: Request, res: Response) => {
         password,
       });
 
+      const token = generateToken({
+        id: newUser.id,
+        name: newUser.name,
+        lastName: newUser.lastName,
+      });
+
       res.status(201);
-      res.json({ id: newUser.id, message: "Usuário cadastrado com sucesso!" });
+      res.json({
+        id: newUser.id,
+        message: "Usuário cadastrado com sucesso!",
+        token,
+      });
     } else {
       res.json({ error: "E-mail já existe." });
     }
@@ -32,15 +44,20 @@ export const register = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
   if (req.body.email && req.body.password) {
-    const email: string = req.body.email;
-    const password: string = req.body.password;
+    const { email, password } = req.body;
+    const authorization = req.header;
 
     const user = await User.findOne({
       where: { email, password },
     });
 
     if (user) {
-      res.json({ status: true });
+      const token = generateToken({
+        id: user.id,
+        name: user.name,
+        lastName: user.lastName,
+      });
+      res.json({ status: true, token });
       return;
     }
   }

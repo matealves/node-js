@@ -1,6 +1,7 @@
 import passport from "passport";
 import { Strategy as JWTStrategy, ExtractJwt } from "passport-jwt";
 import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
 import { User, UserInstance } from "../models/User";
@@ -21,12 +22,21 @@ passport.use(
   })
 );
 
+export const generateToken = (data: object) => {
+  return jwt.sign(data, process.env.JWT_SECRET_KEY as string, {
+    expiresIn: "2h",
+  });
+};
+
 export const privateRoute = (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  return passport.authenticate(req, res, next)();
+  passport.authenticate("jwt", (err: Error, user: UserInstance) => {
+    req.user = user;
+    return user ? next() : next(notAuthoriredJSON);
+  })(req, res, next);
 };
 
 export default passport;
