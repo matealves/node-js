@@ -12,8 +12,8 @@ describe("Testing Math library", () => {
   });
 
   it("should multiply two numbers correctly", () => {
-    const response = Math.mult(3, 5);
-    expect(response).toBe(15);
+    const response = Math.mult(2, 5);
+    expect(response).toBe(10);
   });
 
   it("should divide two numbers correctly", () => {
