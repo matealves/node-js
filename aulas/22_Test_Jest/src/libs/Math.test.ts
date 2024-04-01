@@ -1,6 +1,26 @@
 import { Math } from "./Math";
 
 describe("Testing Math library", () => {
+  beforeEach(() => {
+    // executa ANTES de cada um dos testes
+  });
+
+  beforeAll(() => {
+    // executa 1x ANTES do primero teste
+  });
+
+  afterEach(() => {
+    // executa DEPOIS de CADA um dos testes
+  });
+
+  beforeAll(() => {
+    // executa ANTES de CADA um dos testes
+  });
+
+  afterAll(() => {
+    // executa 1x DEPOIS do último teste
+  });
+
   it("should sum two numbers correctly", () => {
     const response = Math.sum(1, 2);
     expect(response).toBe(3);
