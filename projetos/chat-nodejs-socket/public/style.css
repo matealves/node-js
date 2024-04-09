@@ -57,6 +57,7 @@ li {
   padding: 0 20px;
   font-size: 15px;
   background-color: #464545;
+  color: #fff;
   outline: 0;
   border: 0;
 }
@@ -77,6 +78,14 @@ li {
     }
   }
 
+  & .message__container {
+    display: flex;
+
+    &.me {
+      justify-content: flex-end;
+    }
+  }
+
   & .message {
     display: flex;
     flex-direction: column;
@@ -89,7 +98,7 @@ li {
     & .user {
       font-weight: bold;
       color: aquamarine;
-      margin-bottom: 3px;
+      margin-bottom: 6px;
 
       &.me {
         color: crimson;

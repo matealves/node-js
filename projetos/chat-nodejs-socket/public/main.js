@@ -17,9 +17,9 @@ function renderUserList() {
   users.innerHTML = "";
 
   userList.forEach((user) => {
-    users.innerHTML += `<li><span class="ball">🟢</span><span class="username">${user}</span>${
-      user.toLowerCase() === "mateus" ? " (você)" : ""
-    }</li>`;
+    users.innerHTML += `<li><span class="ball">🟢</span><span class="username">${user} ${
+      user.toLowerCase() === username ? "(você)" : ""
+    }</span></li>`;
   });
 }
 
@@ -30,7 +30,9 @@ function addMessage(type, user, message) {
       chat.innerHTML += `<li class="m-status">${message}</li>`;
       break;
     case "msg":
-      chat.innerHTML += `<li class="message"><span class="user">${user}</span>${message}</li>`;
+      chat.innerHTML += `<li class="message__container"><div class="message"><span class="user ${
+        user.toLowerCase() === username ? "me" : ""
+      }">${user}</span><span>${message}</span></div></li>`;
       break;
   }
 }
@@ -44,6 +46,19 @@ loginInput.addEventListener("keyup", (e) => {
       document.title = "Chat (" + username + ")";
 
       socket.emit("join-request", username);
+    }
+  }
+});
+
+textInput.addEventListener("keyup", (e) => {
+  if (e.keyCode === 13) {
+    const txt = textInput.value.trim();
+    textInput.value = "";
+    textInput.focus();
+
+    if (txt != "") {
+      addMessage("msg", username, txt);
+      socket.emit("send-msg", txt);
     }
   }
 });
@@ -72,4 +87,8 @@ socket.on("list-update", (data) => {
 
   userList = data.list;
   renderUserList();
+});
+
+socket.on("show-msg", (data) => {
+  addMessage("msg", data.username, data.message);
 });

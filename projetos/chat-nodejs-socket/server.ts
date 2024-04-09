@@ -63,4 +63,14 @@ io.on("connection", (socket: CustomSocket) => {
       list: connectedUsers,
     });
   });
+
+  socket.on("send-msg", (txt) => {
+    const obj = {
+      username: socket.username,
+      message: txt,
+    };
+
+    // socket.emit("show-msg", obj);
+    socket.broadcast.emit("show-msg", obj);
+  });
 });
