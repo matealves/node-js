@@ -17,10 +17,22 @@ function renderUserList() {
   users.innerHTML = "";
 
   userList.forEach((user) => {
-    users.innerHTML += `<li>${user} ${
-      user.toLowerCase() === "mateus" ? "(você)" : ""
+    users.innerHTML += `<li><span class="ball">🟢</span><span class="username">${user}</span>${
+      user.toLowerCase() === "mateus" ? " (você)" : ""
     }</li>`;
   });
+}
+
+function addMessage(type, user, message) {
+  const chat = document.querySelector(".chat__page-list");
+  switch (type) {
+    case "status":
+      chat.innerHTML += `<li class="m-status">${message}</li>`;
+      break;
+    case "msg":
+      chat.innerHTML += `<li class="message"><span class="user">${user}</span>${message}</li>`;
+      break;
+  }
 }
 
 loginInput.addEventListener("keyup", (e) => {
@@ -41,6 +53,8 @@ socket.on("user-ok", (list) => {
   chatPage.style.display = "flex";
   textInput.focus();
 
+  addMessage("status", null, "Conetctado!");
+
   userList = list;
   console.log("list:", list);
   console.log("userList:", userList);
@@ -48,6 +62,14 @@ socket.on("user-ok", (list) => {
 });
 
 socket.on("list-update", (data) => {
+  if (data.joined) {
+    addMessage("status", null, `${data.joined} entrou.`);
+  }
+
+  if (data.left) {
+    addMessage("status", null, `${data.left} saiu.`);
+  }
+
   userList = data.list;
   renderUserList();
 });
