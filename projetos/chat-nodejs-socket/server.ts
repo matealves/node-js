@@ -3,8 +3,7 @@ import path from "path";
 import dotenv from "dotenv";
 import cors from "cors";
 import http from "http";
-import { Server } from "socket.io";
-import { log } from "console";
+import { Server, Socket } from "socket.io";
 
 // import apiRoutes from "./src/routes/routes";
 dotenv.config();
@@ -34,10 +33,24 @@ server.listen(PORT, () => {
   );
 });
 
-io.on("connection", (socket) => {
+interface CustomSocket extends Socket {
+  username?: string;
+}
+
+const connectedUsers: string[] = [];
+
+io.on("connection", (socket: CustomSocket) => {
   console.log("connected...");
 
   socket.on("disconnect", () => {
     console.log("disconnected.");
+  });
+
+  socket.on("join-request", (username: string) => {
+    socket.username = username;
+    connectedUsers.push(username);
+    console.log("connectedUsers:", connectedUsers);
+
+    socket.emit("user-ok", connectedUsers);
   });
 });
