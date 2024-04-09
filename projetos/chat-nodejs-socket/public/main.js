@@ -18,23 +18,35 @@ function renderUserList() {
 
   userList.forEach((user) => {
     users.innerHTML += `<li><span class="ball">🟢</span><span class="username">${user} ${
-      user.toLowerCase() === username ? "(você)" : ""
+      user.toLowerCase() === username.toLowerCase() ? "(você)" : ""
     }</span></li>`;
   });
 }
 
 function addMessage(type, user, message) {
+  const isMe = username?.toLowerCase() === user?.toLowerCase();
+
+  const messageElement = document.createElement("li");
+  messageElement.innerHTML = `<li class="message__container ${
+    isMe ? "me" : ""
+  }"><div class="message"><span class="user ${
+    isMe ? "me" : ""
+  }">${user}</span><span>${message}</span></div></li>`;
+
+  const statusElement = document.createElement("li");
+  statusElement.innerHTML = `<li class="m-status">${message}</li>`;
+
   const chat = document.querySelector(".chat__page-list");
   switch (type) {
     case "status":
-      chat.innerHTML += `<li class="m-status">${message}</li>`;
+      chat.lastElementChild.before(statusElement);
       break;
     case "msg":
-      chat.innerHTML += `<li class="message__container"><div class="message"><span class="user ${
-        user.toLowerCase() === username ? "me" : ""
-      }">${user}</span><span>${message}</span></div></li>`;
+      chat.lastElementChild.before(messageElement);
       break;
   }
+
+  chat.scrollTop = chat.scrollHeight;
 }
 
 loginInput.addEventListener("keyup", (e) => {
@@ -44,7 +56,6 @@ loginInput.addEventListener("keyup", (e) => {
     if (name != "") {
       username = name;
       document.title = "Chat (" + username + ")";
-
       socket.emit("join-request", username);
     }
   }
@@ -68,7 +79,9 @@ socket.on("user-ok", (list) => {
   chatPage.style.display = "flex";
   textInput.focus();
 
-  addMessage("status", null, "Conetctado!");
+  // addMessage("status", null, "Conetctado!");
+  const chat = document.querySelector(".chat__page-list");
+  chat.scrollTop = chat.scrollHeight;
 
   userList = list;
   console.log("list:", list);
@@ -91,4 +104,23 @@ socket.on("list-update", (data) => {
 
 socket.on("show-msg", (data) => {
   addMessage("msg", data.username, data.message);
+});
+
+socket.on("disconnect", () => {
+  userList = [];
+  addMessage("status", null, "Você está sem conexão!");
+});
+
+socket.on("connect_error", () => {
+  addMessage("status", null, "Tentando reconectar...");
+});
+
+socket.on("connect", () => {
+  addMessage("status", null, "Conectado!");
+  if (username != "") {
+    socket.emit("join-rquest", username);
+
+    const chat = document.querySelector(".chat__page-list");
+    chat.scrollTop = chat.scrollHeight;
+  }
 });

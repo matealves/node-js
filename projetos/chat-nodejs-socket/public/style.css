@@ -49,6 +49,8 @@ li {
 .chat__page-input {
   width: 100%;
   display: flex;
+  position: fixed;
+  bottom: 0;
 }
 
 #chat__page-text-input {
@@ -56,7 +58,7 @@ li {
   height: 40px;
   padding: 0 20px;
   font-size: 15px;
-  background-color: #464545;
+  background-color: #3a3939;
   color: #fff;
   outline: 0;
   border: 0;
@@ -64,7 +66,7 @@ li {
 
 .chat__page-list {
   flex: 1;
-  background-color: #1b1b1b;
+  position: relative;
   overflow-y: scroll;
   max-height: calc(100vh - 40px);
 
@@ -73,6 +75,8 @@ li {
     margin: 15px;
 
     &.m-status {
+      z-index: 1;
+      position: relative;
       color: #d8d8d8;
       font-style: italic;
     }
@@ -83,6 +87,12 @@ li {
 
     &.me {
       justify-content: flex-end;
+
+      & .message {
+        z-index: 1;
+        padding: 8px 20px 8px 10px;
+        background-color: dodgerblue;
+      }
     }
   }
 
@@ -91,9 +101,10 @@ li {
     flex-direction: column;
     background-color: #3a3939;
     color: #fff;
-    padding: 10px;
+    padding: 8px 20px;
     border-radius: 5px;
     width: fit-content;
+    z-index: 1;
 
     & .user {
       font-weight: bold;
@@ -102,24 +113,39 @@ li {
 
       &.me {
         color: crimson;
+        display: none;
       }
     }
   }
 }
 
+.chat__page-list::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-image: url(bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.45; /* Define a opacidade da imagem de fundo */
+  z-index: 0;
+}
+
 .chat__page-users {
-  width: 200px;
+  width: 250px;
   background-color: #3a3939;
   color: #fff;
-  padding: 15px;
+  padding: 15px 10px;
   overflow-y: scroll;
-  max-height: calc(100vh - 40px);
+  max-height: 100vh;
+  z-index: 2;
 
   & li {
     font-size: 15px;
-    background-color: #1b1b1b;
-    margin: 5px 0;
-    border-radius: 5px;
     padding: 15px;
     display: flex;
     align-items: center;
@@ -129,4 +155,31 @@ li {
       margin-right: 5px;
     }
   }
+}
+
+/* Cor da barra de rolagem */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Cor do fundo da barra de rolagem */
+::-webkit-scrollbar-track {
+  background: #333;
+}
+
+/* Cor do indicador da barra de rolagem */
+::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 5px;
+}
+
+/* Altera o estilo da barra de rolagem no Firefox e em outros navegadores */
+/* O valor 'thin' pode ser 'auto' ou 'thin' */
+/* 'thin' será utilizado para navegadores que suportam a propriedade */
+/* 'auto' irá restaurar para o estilo padrão do navegador */
+
+/* Estilizando a barra de rolagem para navegadores não-WebKit */
+html {
+  scrollbar-width: thin; /* altera a largura da barra de rolagem */
+  scrollbar-color: #555 #333; /* define a cor da barra de rolagem e do fundo */
 }
