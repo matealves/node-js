@@ -46,3 +46,8 @@ socket.on("user-ok", (list) => {
   console.log("userList:", userList);
   renderUserList();
 });
+
+socket.on("list-update", (data) => {
+  userList = data.list;
+  renderUserList();
+});

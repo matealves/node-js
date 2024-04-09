@@ -37,13 +37,19 @@ interface CustomSocket extends Socket {
   username?: string;
 }
 
-const connectedUsers: string[] = [];
+let connectedUsers: string[] = [];
 
 io.on("connection", (socket: CustomSocket) => {
   console.log("connected...");
 
   socket.on("disconnect", () => {
     console.log("disconnected.");
+    connectedUsers = connectedUsers.filter((user) => user != socket.username);
+
+    socket.broadcast.emit("list-update", {
+      left: socket.username,
+      list: connectedUsers,
+    });
   });
 
   socket.on("join-request", (username: string) => {
@@ -52,5 +58,9 @@ io.on("connection", (socket: CustomSocket) => {
     console.log("connectedUsers:", connectedUsers);
 
     socket.emit("user-ok", connectedUsers);
+    socket.broadcast.emit("list-update", {
+      joined: username,
+      list: connectedUsers,
+    });
   });
 });
