@@ -10,9 +10,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  user
+  admin
+}
+
 model User {
-  id     Int     @id @default(autoincrement())
-  status Boolean @default(true)
-  name   String
-  email  String  @unique
+  id        Int      @id @default(autoincrement())
+  status    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  role      Role     @default(user)
+  name      String
+  email     String   @unique
+  posts     Post[]
+
+  // renomear tabela no banco de dados
+  @@map("users")
+}
+
+model Post {
+  id       Int     @id @default(autoincrement())
+  title    String
+  subtitle String?
+  body     String
+  userId   Int
+  author   User    @relation(fields: [userId], references: [id])
+
+  @@map("posts")
 }
