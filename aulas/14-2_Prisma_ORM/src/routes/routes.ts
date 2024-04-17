@@ -11,8 +11,16 @@ mainRouter.post("/user", async (req, res) => {
   const { name, email } = req.body;
   const user = await createUser({ name, email });
 
-  res.json({
-    message: "Usuário adicionado com sucesso.",
-    user,
-  });
+  if (user) {
+    res.status(201);
+    res.json({
+      message: "Usuário adicionado com sucesso.",
+      user,
+    });
+  } else {
+    res.status(500);
+    res.json({
+      error: "E-mail já cadastrado!",
+    });
+  }
 });
