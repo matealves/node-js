@@ -8,6 +8,16 @@ export const ping = (req: Request, res: Response) => {
 export const createNewUser = async (req: Request, res: Response) => {
   const { name, email } = req.body;
   const user = await createUser({ name, email });
+  // const user = await createUser({
+  //   name: "Test",
+  //   email: "test@example.com",
+  //   posts: {
+  //     create: {
+  //       title: "Titulo test",
+  //       body: "lorem ipsum dolor sit amet",
+  //     },
+  //   },
+  // });
 
   if (user) {
     res.status(201);
@@ -35,7 +45,8 @@ export const createMultipleUser = async (req: Request, res: Response) => {
   } else {
     res.status(500);
     res.json({
-      error: "E-mail já cadastrado!",
+      error: "Não foi possível cadastrar esses usuários.",
+      count: 0,
     });
   }
 };
