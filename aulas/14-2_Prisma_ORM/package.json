@@ -2,7 +2,8 @@
   "name": "node-api-base",
   "version": "1.0.0",
   "scripts": {
-    "start": "tsx watch src/server.ts"
+    "start": "tsx watch src/server.ts",
+    "dev": "set HOMOL=true& tsx watch src/server.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.12.1",
