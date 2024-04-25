@@ -1,29 +1,28 @@
 /*
 |--------------------------------------------------------------------------
-| Routes file
+| Routes
 |--------------------------------------------------------------------------
 |
-| The routes file is used for defining the HTTP routes.
+| This file is dedicated for defining HTTP routes. A single file is enough
+| for majority of projects, however you can define routes in different
+| files and just make sure to import them inside this file. For example
+|
+| Define routes in following two files
+| ├── start/routes/cart.ts
+| ├── start/routes/customer.ts
+|
+| and then import them inside `start/routes.ts` as follows
+|
+| import './routes/cart'
+| import './routes/customer'
 |
 */
 
-import MomentsController from '#controllers/moments_controller'
-import router from '@adonisjs/core/services/router'
+import Route from '@ioc:Adonis/Core/Route'
 
-// router
-//   .group(() => {
-//     router.get('/', async () => {
-//       return {
-//         hello: 'world',
-//       }
-//     })
-//   })
-//   .prefix('/api')
+// HABILITAR CORS
+Route.group(() => {
+  Route.resource('/moments', 'MomentsController').apiOnly()
 
-router.get('/', async () => {
-  return {
-    hello: 'world',
-  }
-})
-
-router.resource('/moments', MomentsController).apiOnly()
+  Route.post('/moments/:momentId/comments', 'CommentsController.store')
+}).prefix('/api')

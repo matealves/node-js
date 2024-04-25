@@ -1,22 +1,26 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import Comment from './Comment'
 
 export default class Moment extends BaseModel {
+  @hasMany(() => Comment)
+  public comments: HasMany<typeof Comment>
+
   @column({ isPrimary: true })
-  declare id: number
+  public id: number
 
   @column()
-  declare title: string
+  public title: string
 
   @column()
-  declare description: string
+  public description: string
 
   @column()
-  declare image: string
+  public image: string
 
   @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime
+  public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime
+  public updatedAt: DateTime
 }
