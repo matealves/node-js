@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createUser, createUsers } from "../services/user";
+import { createUser, createUsers, getAllUsers } from "../services/user";
 
 export const ping = (req: Request, res: Response) => {
   res.json({ pong: true });
@@ -49,4 +49,9 @@ export const createMultipleUser = async (req: Request, res: Response) => {
       count: 0,
     });
   }
+};
+
+export const getUsers = async (req: Request, res: Response) => {
+  const users = await getAllUsers();
+  res.json({ users });
 };
