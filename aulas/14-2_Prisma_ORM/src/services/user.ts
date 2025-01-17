@@ -19,3 +19,14 @@ export const createUsers = async (users: Prisma.UserCreateInput[]) => {
     return false;
   }
 };
+
+export const getAllUsers = async () => {
+  return await prisma.user.findMany({
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      status: true,
+    },
+  });
+};
