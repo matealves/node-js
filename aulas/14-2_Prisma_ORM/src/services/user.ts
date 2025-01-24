@@ -38,6 +38,7 @@ export const getUserByEmail = async (email: string) => {
       id: true,
       name: true,
       email: true,
+      status: true,
     },
   });
 };
