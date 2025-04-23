@@ -1,9 +1,9 @@
 import { IsNotEmpty, Length } from 'class-validator';
 
 export class CreateUserBody {
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Name is required.' })
   @Length(3, 60)
   name: string;
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Function is required.' })
   function: string;
 }
