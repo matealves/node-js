@@ -10,14 +10,7 @@ type User = {
 
 @Injectable()
 export class UserRepository {
-  private readonly users: User[] = [
-    // {
-    //   name: 'John',
-    //   lastName: 'Doe',
-    //   email: 'teste@email.com',
-    //   password: '123456',
-    // },
-  ];
+  private readonly users: User[] = [];
 
   async createUser(user: CreateUserDTO) {
     this.users.push(user);
@@ -25,5 +18,10 @@ export class UserRepository {
 
   async getUsers() {
     return this.users;
+  }
+
+  async emailAlreadyExists(email: string): Promise<boolean> {
+    const userExistis = this.users.find((user) => user.email === email);
+    return !!userExistis;
   }
 }
