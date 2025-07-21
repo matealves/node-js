@@ -1,18 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDTO } from './dto/CreateUser.dto';
-
-type User = {
-  name: string;
-  lastName: string;
-  email: string;
-  password: string;
-};
-
+import { UserEntity } from './user.entity';
 @Injectable()
 export class UserRepository {
-  private readonly users: User[] = [];
+  private readonly users: UserEntity[] = [];
 
-  async createUser(user: CreateUserDTO) {
+  async createUser(user: UserEntity) {
     this.users.push(user);
   }
 
