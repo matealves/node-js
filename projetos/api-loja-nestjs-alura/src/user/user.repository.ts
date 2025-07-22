@@ -2,7 +2,22 @@ import { Injectable } from '@nestjs/common';
 import { UserEntity } from './user.entity';
 @Injectable()
 export class UserRepository {
-  private readonly users: UserEntity[] = [];
+  private users: UserEntity[] = [
+    {
+      id: 'b952f3bf-17d0-447d-a553-766d13f74627',
+      name: 'Mateus',
+      lastName: 'Alves',
+      email: 'mateus@email.com',
+      password: '123456',
+    },
+    {
+      id: 'b952f3bf-17d0-447d-a553-766d13f74628',
+      name: 'Roane',
+      lastName: 'Rios',
+      email: 'roane@email.com',
+      password: '789101',
+    },
+  ];
 
   async createUser(user: UserEntity) {
     this.users.push(user);
@@ -22,6 +37,17 @@ export class UserRepository {
     });
 
     return existisUser;
+  }
+
+  async removeUser(id: string) {
+    const existisUser = this.users.find((user) => user.id === id);
+
+    if (existisUser) {
+      this.users = this.users.filter((user) => user.id !== id);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   async getUsers() {
