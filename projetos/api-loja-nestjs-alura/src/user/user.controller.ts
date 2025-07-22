@@ -1,14 +1,23 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { CreateUserDTO } from './dto/CreateUser.dto';
 import { UserEntity } from './user.entity';
-import { v4 as uuid } from 'uuid';
 import { ListUserDTO } from './dto/listUser.dto';
+import { UpdateUserDTO } from './dto/UpdateUser.dto';
+import { v4 as uuid } from 'uuid';
 
 @Controller('/users')
 export class UserController {
   // Injeção de dependência do repositório de usuários
   constructor(private readonly userRepository: UserRepository) {}
+
+  @Get()
+  async getUsers() {
+    const users = await this.userRepository.getUsers();
+    const usersList = users.map((user) => new ListUserDTO(user.id, user.email));
+
+    return users;
+  }
 
   @Post()
   async createUser(@Body() data: CreateUserDTO) {
@@ -23,18 +32,20 @@ export class UserController {
     this.userRepository.createUser(userEntity);
     return {
       message: 'User created successfully',
-      data: {
-        id: userEntity.id,
-        email: userEntity.email,
-      },
+      data: userEntity,
     };
   }
 
-  @Get()
-  async getUsers() {
-    const users = await this.userRepository.getUsers();
-    const usersList = users.map((user) => new ListUserDTO(user.id, user.email));
+  @Put('/:id')
+  async updateUser(@Param('id') id: string, @Body() data: UpdateUserDTO) {
+    const newUser = await this.userRepository.updateUser(id, data);
 
-    return usersList;
+    console.log('NEW USER', newUser);
+    
+
+    return {
+      message: 'User updated successfully',
+      data: newUser,
+    };
   }
 }
