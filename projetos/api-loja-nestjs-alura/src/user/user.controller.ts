@@ -22,10 +22,12 @@ export class UserController {
   @Get()
   async getUsers() {
     const users = await this.userRepository.getUsers();
-    // limitar campos no retorno
-    // const usersList = users.map((user) => new ListUserDTO(user.id, user.email));
+    const usersList = users.map(
+      (user) =>
+        new ListUserDTO(user.id, user.email, `${user.name} ${user.lastName}`),
+    );
 
-    return users;
+    return usersList;
   }
 
   @Post()
