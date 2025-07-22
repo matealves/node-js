@@ -57,17 +57,15 @@ export class UserController {
 
   @Delete('/:id')
   async removeUser(@Param('id') id: string) {
-    const deleted = await this.userRepository.removeUser(id);
+    const deletedUser = await this.userRepository.removeUser(id);
 
-    if (deleted) {
-      return {
-        id,
-        message: 'User deleted successfully',
-      };
-    } else {
-      return {
-        error: 'Error to remove user',
-      };
-    }
+    return {
+      message: 'User deleted successfully',
+      deletedUser: {
+        id: deletedUser.id,
+        fullName: `${deletedUser.name} ${deletedUser.lastName}`,
+        email: deletedUser.email,
+      },
+    };
   }
 }
