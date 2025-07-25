@@ -23,12 +23,13 @@ export default class PetController {
 
     const novoPet: PetEntity = new PetEntity();
 
-    (novoPet.id = geraId()),
-      (novoPet.nome = nome),
-      (novoPet.dataDeNascimento = dataDeNascimento),
-      (novoPet.especie = especie),
-      (novoPet.adotado = adotado),
-      this.repository.criaPet(novoPet);
+    novoPet.id = geraId();
+    novoPet.nome = nome;
+    novoPet.dataDeNascimento = dataDeNascimento;
+    novoPet.especie = especie;
+    novoPet.adotado = adotado;
+
+    this.repository.criaPet(novoPet);
 
     return res.status(201).json({
       mensagem: "Pet criado com sucesso.",
@@ -36,7 +37,8 @@ export default class PetController {
     });
   }
 
-  listaPets(req: Request, res: Response) {
+  async listaPets(req: Request, res: Response) {
+    const listaDePets = await this.repository.listaPet();
     return res.status(200).json(listaDePets);
   }
 
