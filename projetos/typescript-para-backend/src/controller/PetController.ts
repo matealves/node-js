@@ -14,22 +14,21 @@ function geraId() {
 export default class PetController {
   constructor(private readonly repository: PetRepository) {}
 
-  criaPet(req: Request, res: Response) {
+  async criaPet(req: Request, res: Response) {
     const { nome, dataDeNascimento, especie, adotado } = req.body as PetEntity;
 
     if (!Object.values(EnumEspecie).includes(especie)) {
       return res.status(404).json({ erro: "Espécie inválida" });
     }
 
-    const novoPet: PetEntity = new PetEntity();
+    const novoPet: PetEntity = new PetEntity(
+      nome,
+      especie,
+      dataDeNascimento,
+      adotado
+    );
 
-    novoPet.id = geraId();
-    novoPet.nome = nome;
-    novoPet.dataDeNascimento = dataDeNascimento;
-    novoPet.especie = especie;
-    novoPet.adotado = adotado;
-
-    this.repository.criaPet(novoPet);
+    await this.repository.criaPet(novoPet);
 
     return res.status(201).json({
       mensagem: "Pet criado com sucesso.",
