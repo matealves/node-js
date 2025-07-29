@@ -6,7 +6,7 @@ import PetEntity from "../entities/PetEntity";
 export default class PetController {
   constructor(private readonly repository: PetRepository) {}
 
-  async criaPet(req: Request, res: Response) {
+  criaPet(req: Request, res: Response) {
     const { nome, dataDeNascimento, especie, adotado } = req.body as PetEntity;
 
     if (!Object.values(EnumEspecie).includes(especie)) {
@@ -20,7 +20,7 @@ export default class PetController {
       adotado
     );
 
-    await this.repository.criaPet(novoPet);
+    this.repository.criaPet(novoPet);
 
     return res.status(201).json({
       mensagem: "Pet criado com sucesso.",
