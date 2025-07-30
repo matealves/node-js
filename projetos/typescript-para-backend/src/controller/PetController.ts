@@ -77,6 +77,7 @@ export default class PetController {
     return res.sendStatus(204);
   }
 
+  // substituido por buscaPetPorCampoGenerico
   async buscaPetPeloPorte(req: Request, res: Response) {
     const { porte } = req.query;
     const listaDePetsPeloPorte = await this.repository.buscaPetPeloPorte(
@@ -84,5 +85,15 @@ export default class PetController {
     );
 
     return res.status(200).json(listaDePetsPeloPorte);
+  }
+
+  async buscaPetPorCampoGenerico(req: Request, res: Response) {
+    const { campo, valor } = req.query;
+    const listaDePets = await this.repository.buscaPetPorCampoGenerico(
+      campo as keyof PetEntity,
+      valor as string
+    );
+
+    return res.status(200).json(listaDePets);
   }
 }
