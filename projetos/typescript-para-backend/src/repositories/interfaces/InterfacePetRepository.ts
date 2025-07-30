@@ -19,4 +19,9 @@ export default interface InterfacePetRepository {
   ): Promise<{ success: boolean; message?: string }>;
 
   buscaPetPeloPorte(porte: EnumPorte): Promise<PetEntity[]> | PetEntity[];
+
+  buscaPetPorCampoGenerico<Tipo extends keyof PetEntity>(
+    campo: Tipo,
+    valor: PetEntity[Tipo]
+  ): Promise<PetEntity[]> | PetEntity[];
 }

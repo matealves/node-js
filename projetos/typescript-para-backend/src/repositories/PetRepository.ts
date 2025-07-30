@@ -90,4 +90,11 @@ export default class PetRepository implements InterfacePetRepository {
   async buscaPetPeloPorte(porte: EnumPorte): Promise<PetEntity[]> {
     return await this.petRepository.find({ where: { porte } });
   }
+
+  async buscaPetPorCampoGenerico<Tipo extends keyof PetEntity>(
+    campo: Tipo,
+    valor: PetEntity[Tipo]
+  ): Promise<PetEntity[]> {
+    return await this.petRepository.find({ where: { [campo]: valor } });
+  }
 }
