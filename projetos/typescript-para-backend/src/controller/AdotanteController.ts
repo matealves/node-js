@@ -2,11 +2,18 @@ import { Request, Response } from "express";
 import AdotanteEntity from "../entities/AdotanteEntity";
 import AdotanteRepository from "../repositories/AdotanteRepository";
 import EnderecoEntity from "../entities/EnderecoEntity";
+import {
+  TipoRequestBodyAdotante,
+  TipoResponseBodyAdotante,
+} from "../types/tiposAdotante";
 
 // AdotanteController.ts
 export default class AdotanteController {
   constructor(private readonly repository: AdotanteRepository) {}
-  async criaAdotante(req: Request, res: Response) {
+  async criaAdotante(
+    req: Request<{}, {}, TipoRequestBodyAdotante>,
+    res: Response<TipoResponseBodyAdotante>
+  ) {
     const { nome, celular, endereco, foto, senha } = <AdotanteEntity>req.body;
 
     const novoAdotante = new AdotanteEntity(
@@ -18,7 +25,9 @@ export default class AdotanteController {
     );
 
     await this.repository.criaAdotante(novoAdotante);
-    return res.status(201).json(novoAdotante);
+    return res
+      .status(201)
+      .json({ data: { id: novoAdotante.id, nome, celular } });
   }
 
   async atualizaAdotante(req: Request, res: Response) {
