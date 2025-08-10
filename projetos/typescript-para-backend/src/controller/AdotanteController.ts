@@ -31,10 +31,18 @@ export default class AdotanteController {
     const { nome, celular, endereco, foto, senha } = <AdotanteEntity>req.body;
 
     try {
-      await adotanteBodyValidator.validate(req.body);
+      await adotanteBodyValidator.validate(req.body, { abortEarly: false });
     } catch (error) {
       const yupErros = error as yup.ValidationError;
-      return res.status(400).json({ error: yupErros.message });
+
+      const validationErros: Record<string, string> = {};
+
+      yupErros.inner.forEach((error) => {
+        if (!error.path) return;
+        validationErros[error.path] = error.message;
+      });
+
+      return res.status(400).json({ error: validationErros });
     }
 
     const novoAdotante = new AdotanteEntity(
