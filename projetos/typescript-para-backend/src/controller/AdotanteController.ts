@@ -2,25 +2,11 @@ import { Request, Response } from "express";
 import AdotanteEntity from "../entities/AdotanteEntity";
 import AdotanteRepository from "../repositories/AdotanteRepository";
 import EnderecoEntity from "../entities/EnderecoEntity";
-import * as yup from "yup";
 import {
   TipoRequestBodyAdotante,
   TipoRequestParamsAdotante,
   TipoResponseBodyAdotante,
 } from "../types/tiposAdotante";
-
-const adotanteBodyValidator: yup.ObjectSchema<
-  Omit<TipoRequestBodyAdotante, "endereco">
-> = yup.object({
-  nome: yup.string().defined().required(),
-  celular: yup.string().defined().required(),
-  senha: yup
-    .string()
-    .defined()
-    .required()
-    .min(6, "Senha deve ter pelo menos 6 caracteres"),
-  foto: yup.string().optional(),
-});
 
 export default class AdotanteController {
   constructor(private readonly repository: AdotanteRepository) {}
@@ -29,21 +15,6 @@ export default class AdotanteController {
     res: Response<TipoResponseBodyAdotante>
   ) {
     const { nome, celular, endereco, foto, senha } = <AdotanteEntity>req.body;
-
-    try {
-      await adotanteBodyValidator.validate(req.body, { abortEarly: false });
-    } catch (error) {
-      const yupErros = error as yup.ValidationError;
-
-      const validationErros: Record<string, string> = {};
-
-      yupErros.inner.forEach((error) => {
-        if (!error.path) return;
-        validationErros[error.path] = error.message;
-      });
-
-      return res.status(400).json({ error: validationErros });
-    }
 
     const novoAdotante = new AdotanteEntity(
       nome,
