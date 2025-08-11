@@ -82,14 +82,14 @@ export default class AdotanteController {
   }
 
   async atualizaEnderecoAdotante(
-    req: Request<TipoRequestParamsAdotante, {}, TipoRequestBodyAdotante>,
+    req: Request<TipoRequestParamsAdotante, {}, EnderecoEntity>,
     res: Response<TipoResponseBodyAdotante>
   ) {
     const { id } = req.params;
 
     const { success, message } = await this.repository.atualizaEnderecoAdotante(
       Number(id),
-      req.body.endereco as EnderecoEntity
+      req.body
     );
 
     if (!success) {
