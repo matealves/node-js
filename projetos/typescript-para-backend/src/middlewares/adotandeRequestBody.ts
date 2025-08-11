@@ -37,4 +37,4 @@ const middlewareValidatorBodyAdotante = async (
   }
 };
 
-export default middlewareValidatorBodyAdotante;
+export { middlewareValidatorBodyAdotante };
