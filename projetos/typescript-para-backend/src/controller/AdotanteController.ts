@@ -27,7 +27,7 @@ export default class AdotanteController {
     await this.repository.criaAdotante(novoAdotante);
     return res
       .status(201)
-      .json({ data: { id: novoAdotante.id, nome, celular } });
+      .json({ data: { id: novoAdotante.id, nome, celular, endereco } });
   }
 
   async atualizaAdotante(
@@ -58,6 +58,7 @@ export default class AdotanteController {
         id: adotante.id,
         nome: adotante.nome,
         celular: adotante.celular,
+        endereco: adotante.endereco !== null ? adotante.endereco : undefined,
       };
     });
 
