@@ -6,7 +6,14 @@ const schemaBodyAdotante: yup.ObjectSchema<
   Omit<TipoRequestBodyAdotante, "endereco">
 > = yup.object({
   nome: yup.string().defined().required(),
-  celular: yup.string().defined().required(),
+  celular: yup
+    .string()
+    .defined()
+    .required()
+    .matches(
+      /^(\(?[0-9]{2}\)?)? ?([0-9]{4,5})-?([0-9]{4})$/gm,
+      "Número de celular inválido"
+    ),
   senha: yup
     .string()
     .defined()
