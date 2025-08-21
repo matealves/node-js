@@ -1,6 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import * as yup from "yup";
+import { pt } from "yup-locale-pt";
 import { TipoRequestBodyAdotante } from "../types/tiposAdotante";
+
+yup.setLocale(pt);
 
 const schemaBodyAdotante: yup.ObjectSchema<
   Omit<TipoRequestBodyAdotante, "endereco">
@@ -18,7 +21,11 @@ const schemaBodyAdotante: yup.ObjectSchema<
     .string()
     .defined()
     .required()
-    .min(6, "Senha deve ter pelo menos 6 caracteres"),
+    .min(6, "Senha deve ter pelo menos 6 caracteres")
+    .matches(
+      /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/gm,
+      "Senha inválida"
+    ),
   foto: yup.string().optional(),
 });
 
