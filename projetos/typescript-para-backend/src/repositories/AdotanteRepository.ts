@@ -2,6 +2,7 @@ import { Repository } from "typeorm";
 import InterfaceAdotanteRepository from "./interfaces/InterfaceAdotanteRepository";
 import AdotanteEntity from "../entities/AdotanteEntity";
 import EnderecoEntity from "../entities/EnderecoEntity";
+import { NaoEncontrado } from "../utils/manipulaErros";
 
 export default class AdotanteRepository implements InterfaceAdotanteRepository {
   constructor(private readonly repository: Repository<AdotanteEntity>) {}
@@ -17,74 +18,50 @@ export default class AdotanteRepository implements InterfaceAdotanteRepository {
     id: number,
     newData: AdotanteEntity
   ): Promise<{ success: boolean; message?: string }> {
-    try {
-      const adotanteToUpdate = await this.repository.findOne({ where: { id } });
+    const adotanteToUpdate = await this.repository.findOne({ where: { id } });
 
-      if (!adotanteToUpdate) {
-        return { success: false, message: "Adotante não encontrado" };
-      }
-
-      Object.assign(adotanteToUpdate, newData);
-
-      await this.repository.save(adotanteToUpdate);
-
-      return { success: true };
-    } catch (error) {
-      console.log(error);
-      return {
-        success: false,
-        message: "Ocorreu um erro ao tentar atualizar o adotante.",
-      };
+    if (!adotanteToUpdate) {
+      throw new NaoEncontrado("Adotante não encontrado");
     }
+
+    Object.assign(adotanteToUpdate, newData);
+
+    await this.repository.save(adotanteToUpdate);
+
+    return { success: true };
   }
 
   async deletaAdotante(
     id: number
   ): Promise<{ success: boolean; message?: string }> {
-    try {
-      const adotanteToRemove = await this.repository.findOne({ where: { id } });
+    const adotanteToRemove = await this.repository.findOne({ where: { id } });
 
-      if (!adotanteToRemove) {
-        return { success: false, message: "Adotante não encontrado" };
-      }
-
-      await this.repository.remove(adotanteToRemove);
-
-      return { success: true };
-    } catch (error) {
-      console.error(error);
-      return {
-        success: false,
-        message: "Ocorreu um erro ao tentar excluir o adotante.",
-      };
+    if (!adotanteToRemove) {
+      throw new NaoEncontrado("Adotante não encontrado");
     }
+
+    await this.repository.remove(adotanteToRemove);
+
+    return { success: true };
   }
 
   async atualizaEnderecoAdotante(
     IdAdotante: number,
     endereco: EnderecoEntity
   ): Promise<{ success: boolean; message?: string }> {
-    try {
-      const adotante = await this.repository.findOne({
-        where: { id: IdAdotante },
-      });
+    const adotante = await this.repository.findOne({
+      where: { id: IdAdotante },
+    });
 
-      if (!adotante) {
-        return { success: false, message: "Adotante não encontrado" };
-      }
-
-      const novoEndereco = new EnderecoEntity(endereco.cidade, endereco.estado);
-      adotante.endereco = novoEndereco;
-
-      await this.repository.save(adotante);
-
-      return { success: true };
-    } catch (error) {
-      console.log(error);
-      return {
-        success: false,
-        message: "Ocorreu um erro ao tentar atualizar o endereço do adotante.",
-      };
+    if (!adotante) {
+      throw new NaoEncontrado("Adotante não encontrado");
     }
+
+    const novoEndereco = new EnderecoEntity(endereco.cidade, endereco.estado);
+    adotante.endereco = novoEndereco;
+
+    await this.repository.save(adotante);
+
+    return { success: true };
   }
 }
