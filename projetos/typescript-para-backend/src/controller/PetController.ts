@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import EnumEspecie from "../enum/EnumEspecie";
 import PetRepository from "../repositories/PetRepository";
 import PetEntity from "../entities/PetEntity";
 import EnumPorte from "../enum/EnumPorte";
@@ -57,14 +56,8 @@ export default class PetController {
     res: Response<TipoResponseBodyPet>
   ) {
     const { id } = req.params;
-    const { success, message } = await this.repository.atualizaPet(
-      Number(id),
-      req.body as PetEntity
-    );
+    await this.repository.atualizaPet(Number(id), req.body as PetEntity);
 
-    if (!success) {
-      return res.status(404).json({ error: message });
-    }
     return res.sendStatus(204);
   }
 
@@ -74,11 +67,8 @@ export default class PetController {
   ) {
     const { id } = req.params;
 
-    const { success, message } = await this.repository.deletaPet(Number(id));
+    await this.repository.deletaPet(Number(id));
 
-    if (!success) {
-      return res.status(404).json({ error: message });
-    }
     return res.sendStatus(204);
   }
 
@@ -88,14 +78,8 @@ export default class PetController {
   ) {
     const { pet_id, adotante_id } = req.params;
 
-    const { success, message } = await this.repository.adotaPet(
-      Number(pet_id),
-      Number(adotante_id)
-    );
+    await this.repository.adotaPet(Number(pet_id), Number(adotante_id));
 
-    if (!success) {
-      return res.status(404).json({ error: message });
-    }
     return res.sendStatus(204);
   }
 
