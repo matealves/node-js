@@ -13,17 +13,17 @@ import PetEntity from "./PetEntity";
 import { criaSenhaCriptografada } from "../utils/criaSenhaCriptografada";
 
 @Entity()
-export default class AdotanteEntity {
+export default class AbrigoEntity {
   @PrimaryGeneratedColumn()
   id!: number;
   @Column()
   nome: string;
+  @Column({ unique: true })
+  email: string;
+  @Column()
+  celular: string;
   @Column()
   senha: string;
-  @Column({ unique: true })
-  celular: string;
-  @Column({ nullable: true })
-  foto?: string;
   @OneToOne(() => EnderecoEntity, {
     nullable: true,
     cascade: true,
@@ -31,20 +31,21 @@ export default class AdotanteEntity {
   })
   @JoinColumn()
   endereco?: EnderecoEntity;
-  @OneToMany(() => PetEntity, (pet) => pet.adotante)
+
+  @OneToMany(() => PetEntity, (pet) => pet.abrigo)
   pets!: PetEntity[];
 
   constructor(
     nome: string,
-    senha: string,
+    email: string,
     celular: string,
-    foto?: string,
+    senha: string,
     endereco?: EnderecoEntity
   ) {
     this.nome = nome;
-    this.senha = senha;
+    this.email = email;
     this.celular = celular;
-    this.foto = foto;
+    this.senha = senha;
     this.endereco = endereco;
   }
 
