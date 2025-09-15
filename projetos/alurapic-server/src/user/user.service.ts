@@ -1,15 +1,27 @@
 import { Injectable } from '@nestjs/common';
-
-export type User = {
-  name: string;
-  email: string;
-};
-
+import { User } from './user.entity';
 @Injectable()
 export class UserService {
-  private readonly users: User[] = [];
+  private readonly users: User[] = [
+    {
+      id: 1,
+      username: 'jow',
+      email: 'jow@gmail.com',
+      password: '123456',
+      fullName: 'Jow Doe',
+      createdAt: new Date(),
+    },
+    {
+      id: 2,
+      username: 'mateus',
+      email: 'email@gmail.com',
+      password: '123456',
+      fullName: 'Mateus Alves',
+      createdAt: new Date(),
+    },
+  ];
 
-  public create(user: User) {
+  public create(user: User): User {
     this.users.push(user);
     return user;
   }
@@ -18,8 +30,12 @@ export class UserService {
     return this.users;
   }
 
-  public remove(email: string): void {
-    const index = this.users.findIndex((user) => user.email === email);
+  public findByEmail(email: string): User | undefined {
+    return this.users.find((user) => user.email === email);
+  }
+
+  public remove(id: number): void {
+    const index = this.users.findIndex((user) => user.id === Number(id));
     if (index !== -1) {
       this.users.splice(index, 1);
     }

@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { UserService, User } from './user.service';
+import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
+import { UserService } from './user.service';
+import { User } from './user.entity';
 
 @Controller('users')
 export class UserController {
@@ -19,9 +20,14 @@ export class UserController {
     return data;
   }
 
+  @Get('/search')
+  public findByEmail(@Query('email') email: string) {
+    return this.userService.findByEmail(email);
+  }
+
   @Delete()
-  public remove(@Param('email') email: string) {
-    this.userService.remove(email);
+  public remove(@Query('id') id: number) {
+    this.userService.remove(id);
 
     return { status: true, message: 'User deleted successfully' };
   }
