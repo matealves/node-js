@@ -7,7 +7,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  public create(@Body() user: string) {
+  public create(@Body() user: User) {
     const data = this.userService.create(user as unknown as User);
 
     return { status: true, message: 'User created successfully', data };
