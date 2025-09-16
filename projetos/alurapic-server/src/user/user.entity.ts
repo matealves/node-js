@@ -13,14 +13,14 @@ export class User {
   @IsEmail()
   email: string;
 
-  @Expose({
-    name: 'password',
-  })
   @Exclude({ toPlainOnly: true })
   @IsNotEmpty()
-  senha: string;
+  password: string;
 
+  @Expose({
+    name: 'fullName',
+  })
   @IsNotEmpty()
-  fullName: string;
+  nomeCompleto: string;
   createdAt: Date;
 }
