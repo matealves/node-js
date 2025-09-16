@@ -21,6 +21,11 @@ export class UserController {
   }
 
   @Get('/search')
+  public findByUsername(@Query('username') username: string) {
+    return this.userService.findByUsername(username);
+  }
+
+  @Get('/search')
   public findByEmail(@Query('email') email: string) {
     return this.userService.findByEmail(email);
   }

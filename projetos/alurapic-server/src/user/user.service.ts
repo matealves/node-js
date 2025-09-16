@@ -30,6 +30,10 @@ export class UserService {
     return this.users;
   }
 
+  public findByUsername(username: string): User | undefined {
+    return this.users.find((user) => user.username === username);
+  }
+
   public findByEmail(email: string): User | undefined {
     return this.users.find((user) => user.email === email);
   }
