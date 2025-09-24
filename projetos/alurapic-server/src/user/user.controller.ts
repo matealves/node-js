@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   HttpStatus,
+  NotFoundException,
   Post,
   Query,
 } from '@nestjs/common';
@@ -38,12 +39,28 @@ export class UserController {
 
   @Get('/search')
   public findByUsername(@Query('username') username: string) {
-    return this.userService.findByUsername(username);
+    const userExist = this.userService.findByUsername(username);
+    if (!userExist) {
+      throw new NotFoundException({
+        statusCode: HttpStatus.NOT_FOUND,
+        message: 'User not found',
+      });
+    }
+
+    return userExist;
   }
 
   @Get('/search')
   public findByEmail(@Query('email') email: string) {
-    return this.userService.findByEmail(email);
+    const userExist = this.userService.findByEmail(email);
+    if (!userExist) {
+      throw new NotFoundException({
+        statusCode: HttpStatus.NOT_FOUND,
+        message: 'User not found',
+      });
+    }
+
+    return userExist;
   }
 
   @Delete()
