@@ -1,16 +1,32 @@
-import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpStatus,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.entity';
+import { NestResponseBuilder } from '../core/http/nest-response-builder';
+import { NestResponse } from '../core/http/nest-response';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  public create(@Body() user: User) {
+  public create(@Body() user: User): NestResponse {
     const data = this.userService.create(user as unknown as User);
 
-    return { status: true, message: 'User created successfully', data };
+    // return { status: true, message: 'User created successfully', data };
+
+    return new NestResponseBuilder()
+      .comStatus(HttpStatus.CREATED)
+      .comHeaders({ Location: `/users/${data.username}` })
+      .comBody(data)
+      .build();
   }
 
   @Get()
