@@ -1,12 +1,11 @@
 interface Funcionario {
   nome: string;
   cargaHoraria: number;
-  trabalha(): void;
 }
 
 interface FuncionarioEfetivo extends Funcionario {
   salario: number;
-  calculaSalarioLiquido(): number;
+  calculaSalario(): number;
   calculaParticipacaoDeLucros(lucro: number): number;
 }
 
@@ -32,23 +31,21 @@ class FuncionarioEfetivo implements FuncionarioEfetivo {
     const desconto = this.salario * TAXA_DESCONTO;
     return this.salario - desconto;
   }
-
+  
   calculaParticipacaoDeLucros(lucro: number): number {
     return lucro * this.salario;
   }
 }
 
-class FuncionarioVoluntario implements FuncionarioVoluntario {
-  orientador: Funcionario;
-
+class Pesquisador {
   constructor(
-    nome: string,
-    cargaHorariaExtensao: number,
-    funciarioEfetivo: Funcionario
+    public nome: string,
+    public cargaHorariaExtensao: number,
+    public orientador: Funcionario
   ) {
     this.nome = nome;
-    this.cargaHoraria = cargaHorariaExtensao;
-    this.orientador = funciarioEfetivo;
+    this.cargaHorariaExtensao = cargaHorariaExtensao;
+    this.orientador = orientador;
   }
 
   escreveRelatorio(): void {
@@ -59,17 +56,13 @@ class FuncionarioVoluntario implements FuncionarioVoluntario {
 
   trabalha(): void {
     console.log(
-      `Me chamo ${this.nome} e eu pesquiso ${this.cargaHoraria} horas por semana para cumprir na minha graduação`
+      `Me chamo ${this.nome} e eu pesquiso ${this.cargaHorariaExtensao} horas por semana para cumprir na minha graduação`
     );
   }
 }
 
 const funcionarioEfetivo = new FuncionarioEfetivo("João", 40, 2400);
-const funcionarioVoluntario = new FuncionarioVoluntario(
-  "Enzo",
-  20,
-  funcionarioEfetivo
-);
+const pesquisador = new Pesquisador("Enzo", 20, funcionarioEfetivo);
 
 //Efetivo
 console.log("nome:", funcionarioEfetivo.nome);
@@ -81,6 +74,6 @@ console.log(
   "\n"
 );
 
-//Voluntário
-console.log("nome:", funcionarioVoluntario.nome);
-funcionarioVoluntario.escreveRelatorio();
+//Pesquisador
+console.log("nome:", pesquisador.nome);
+pesquisador.escreveRelatorio();
